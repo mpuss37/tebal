@@ -1,16 +1,117 @@
 package com.example.perpustakaan.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.content.ContentValues;
+import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.perpustakaan.Handler.UserHandler;
+import com.example.perpustakaan.Model.BukuModel;
+import com.example.perpustakaan.Model.UserModel;
 import com.example.perpustakaan.R;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
+    EditText editTextUsername, editTextPass;
+    String username, pass;
+    Button buttonSave;
+    ConstraintLayout constraintLayoutMain;
+    TextView textViewRegister;
+    protected SQLiteDatabase sqLiteDatabase;
+    protected Database database;
+    protected ContentValues contentValues;
+    protected Intent intent;
+    protected Cursor cursor;
+    protected ArrayList<BukuModel> bukuModelArrayList;
+    protected ArrayList<UserModel> userModelArrayList;
+    protected UserHandler userHandler;
+    protected String query;
+    protected int id_data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        userHandler = new UserHandler(MainActivity.this);
+        userHandler.openWrite();
+        userHandler.openRead();
+        editTextUsername = findViewById(R.id.editTextUsername);
+        editTextPass = findViewById(R.id.editTextPass);
+        buttonSave = findViewById(R.id.buttonSave);
+        textViewRegister = findViewById(R.id.textViewRegister);
+        constraintLayoutMain = findViewById(R.id.clMain);
+        buttonSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                username = editTextUsername.getText().toString();
+                pass = editTextPass.getText().toString();
+                intent = new Intent(MainActivity.this, MenuUser.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                if (username.equals("") || pass.equals("")) {
+                    Toast.makeText(MainActivity.this, "input your field", Toast.LENGTH_SHORT).show();
+                } else if (buttonSave.getText().toString().equals("Login")) {
+                    long id = userHandler.readUser(username, pass);
+                    if (id != -1) {
+                        Toast.makeText(MainActivity.this, "welkom" + username, Toast.LENGTH_SHORT).show();
+                        intent.putExtra("key_id_user", id);
+                        intent.putExtra("key_username", username);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        Toast.makeText(MainActivity.this, "your user/pass false", Toast.LENGTH_SHORT).show();
+                    }
+                } else if (buttonSave.getText().toString().equals("Register")) {
+                    long id = userHandler.readUser(username, pass);
+                    if (id != -1) {
+                        Toast.makeText(MainActivity.this, "username already used" + id, Toast.LENGTH_SHORT).show();
+                    } else {
+                        userHandler.insertUser(username, pass);
+                        Toast.makeText(MainActivity.this, "data has been add", Toast.LENGTH_SHORT).show();
+                        editTextUsername.setText("");
+                        editTextPass.setText("");
+                    }
+                }
+            }
+        });
+
+        constraintLayoutMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hideKey(v);
+            }
+        });
+
+        textViewRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (buttonSave.getText().toString().equals("Login")) {
+                    buttonSave.setText("Register");
+                    textViewRegister.setText("have account");
+                } else {
+                    buttonSave.setText("Login");
+                    textViewRegister.setText("new account ??");
+                }
+            }
+        });
+    }
+
+    public void hideKey(View view) {
+        view = getCurrentFocus();
+        if (view != null) {
+            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 }

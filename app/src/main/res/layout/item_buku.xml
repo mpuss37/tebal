@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="8dp">
+
+    <TextView
+        android:id="@+id/textViewIdBuku"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextViewIdBuku"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewJudul"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="TextViewJudul"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewIdBuku" />
+
+    <TextView
+        android:id="@+id/TextViewTahunTerbit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="@+id/textViewPenerbit"
+        app:layout_constraintTop_toBottomOf="@+id/textViewPenerbit" />
+
+    <TextView
+        android:id="@+id/textViewPenulis"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="@+id/textViewJudul"
+        app:layout_constraintTop_toBottomOf="@+id/textViewJudul" />
+
+    <TextView
+        android:id="@+id/textViewPenerbit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="@+id/textViewPenulis"
+        app:layout_constraintTop_toBottomOf="@+id/textViewPenulis" />
+</androidx.constraintlayout.widget.ConstraintLayout>

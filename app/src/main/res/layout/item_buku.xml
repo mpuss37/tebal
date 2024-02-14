@@ -2,12 +2,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cvData"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:padding="8dp">
 
     <TextView
-        android:id="@+id/textViewIdBuku"
+        android:id="@+id/textViewIdKategori"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextViewIdBuku"
@@ -15,13 +16,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textViewJudul"
+        android:id="@+id/textViewNamaKategori"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="TextViewJudul"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewIdBuku" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewIdKategori" />
 
     <TextView
         android:id="@+id/TextViewTahunTerbit"
@@ -38,8 +39,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="TextView"
-        app:layout_constraintStart_toStartOf="@+id/textViewJudul"
-        app:layout_constraintTop_toBottomOf="@+id/textViewJudul" />
+        app:layout_constraintStart_toStartOf="@+id/textViewNamaKategori"
+        app:layout_constraintTop_toBottomOf="@+id/textViewNamaKategori" />
 
     <TextView
         android:id="@+id/textViewPenerbit"

@@ -4,6 +4,14 @@ public class BukuModel {
     private int id_buku;
     private String judul, penulis, penerbit, tahunterbit;
 
+    public BukuModel(int id_buku, String judul, String penulis, String penerbit, String tahunterbit) {
+        this.id_buku = id_buku;
+        this.judul = judul;
+        this.penulis = penulis;
+        this.penerbit = penerbit;
+        this.tahunterbit = tahunterbit;
+    }
+
     public int getId_buku() {
         return id_buku;
     }

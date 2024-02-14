@@ -1,24 +1,34 @@
 package com.example.perpustakaan.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.perpustakaan.Model.BukuModel;
 import com.example.perpustakaan.R;
+import com.example.perpustakaan.View.AddBuku;
 
 import java.util.ArrayList;
 
-public class MenuBukuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private ArrayList<BukuModel> bukuModelArrayList;
-    private Context context;
+public class BukuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    ArrayList<BukuModel> bukuModelArrayList;
+    Bundle bundle;
+    Intent intent;
+    Context context;
+    AddBuku addBuku;
+    int id_buku;
+    String judul, penulis, penerbit, tahunterbit;
 
-    public MenuBukuAdapter(ArrayList<BukuModel> bukuModelArrayList, Context context) {
+    public BukuAdapter(ArrayList<BukuModel> bukuModelArrayList, Context context) {
         this.bukuModelArrayList = bukuModelArrayList;
         this.context = context;
     }
@@ -40,6 +50,23 @@ public class MenuBukuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             viewHolder.textViewPenulis.setText(String.valueOf(bukuModel.getPenulis()));
             viewHolder.textViewPenerbit.setText(String.valueOf(bukuModel.getPenerbit()));
             viewHolder.textViewTahunTerbit.setText(String.valueOf(bukuModel.getTahunterbit()));
+            viewHolder.constraintLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(context, "edit buku", Toast.LENGTH_SHORT).show();
+                    judul = viewHolder.textViewJudul.getText().toString();
+                    penulis = viewHolder.textViewPenulis.getText().toString();
+                    penerbit = viewHolder.textViewPenerbit.getText().toString();
+                    tahunterbit = viewHolder.textViewTahunTerbit.getText().toString();
+                    intent = new Intent(context, AddBuku.class);
+                    intent.putExtra("key_judul", judul);
+                    intent.putExtra("key_penulis", penulis);
+                    intent.putExtra("key_penerbit", penerbit);
+                    intent.putExtra("key_tahun_terbit", tahunterbit);
+                    context.startActivity(intent);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                }
+            });
         }
     }
 
@@ -50,14 +77,16 @@ public class MenuBukuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     class ViewHolder extends RecyclerView.ViewHolder {
         TextView textViewIdBuku, textViewJudul, textViewPenulis, textViewPenerbit, textViewTahunTerbit;
+        ConstraintLayout constraintLayout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            textViewIdBuku = itemView.findViewById(R.id.textViewIdBuku);
-            textViewJudul = itemView.findViewById(R.id.textViewJudul);
+            textViewIdBuku = itemView.findViewById(R.id.textViewIdKategori);
+            textViewJudul = itemView.findViewById(R.id.textViewNamaKategori);
             textViewPenulis = itemView.findViewById(R.id.textViewPenulis);
             textViewPenerbit = itemView.findViewById(R.id.textViewPenerbit);
             textViewTahunTerbit = itemView.findViewById(R.id.TextViewTahunTerbit);
+            constraintLayout = itemView.findViewById(R.id.cvData);
         }
     }
 }

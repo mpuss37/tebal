@@ -16,6 +16,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.perpustakaan.Adapter.BukuAdapter;
+import com.example.perpustakaan.Handler.BukuHandler;
 import com.example.perpustakaan.Handler.UserHandler;
 import com.example.perpustakaan.Model.BukuModel;
 import com.example.perpustakaan.Model.UserModel;
@@ -25,12 +27,11 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     EditText editTextUsername, editTextPass;
-    String username, pass;
-    Button buttonSave;
+    protected String username, pass;
+    protected Button buttonSave;
     ConstraintLayout constraintLayoutMain;
     TextView textViewRegister;
     protected SQLiteDatabase sqLiteDatabase;
-    protected Database database;
     protected ContentValues contentValues;
     protected Intent intent;
     protected Cursor cursor;
@@ -38,13 +39,14 @@ public class MainActivity extends AppCompatActivity {
     protected ArrayList<UserModel> userModelArrayList;
     protected UserHandler userHandler;
     protected String query;
-    protected int id_data;
+    protected long id_data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        userHandler = new UserHandler(MainActivity.this);
+        getSupportActionBar().hide();
+        userHandler = new UserHandler(this);
         userHandler.openWrite();
         userHandler.openRead();
         editTextUsername = findViewById(R.id.editTextUsername);
@@ -62,13 +64,11 @@ public class MainActivity extends AppCompatActivity {
                 if (username.equals("") || pass.equals("")) {
                     Toast.makeText(MainActivity.this, "input your field", Toast.LENGTH_SHORT).show();
                 } else if (buttonSave.getText().toString().equals("Login")) {
-                    long id = userHandler.readUser(username, pass);
-                    if (id != -1) {
-                        Toast.makeText(MainActivity.this, "welkom" + username, Toast.LENGTH_SHORT).show();
-                        intent.putExtra("key_id_user", id);
+                    id_data = userHandler.readUser(username, pass);
+                    if (id_data != -1) {
+                        intent.putExtra("key_id_user", id_data);
                         intent.putExtra("key_username", username);
                         startActivity(intent);
-                        finish();
                     } else {
                         Toast.makeText(MainActivity.this, "your user/pass false", Toast.LENGTH_SHORT).show();
                     }

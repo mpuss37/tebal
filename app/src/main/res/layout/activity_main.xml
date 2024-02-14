@@ -14,6 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:hint="password"
+        app:passwordToggleEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
@@ -21,7 +22,8 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextPass"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="halah" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <ImageView
@@ -67,7 +69,8 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextUsername"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="herdi" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button

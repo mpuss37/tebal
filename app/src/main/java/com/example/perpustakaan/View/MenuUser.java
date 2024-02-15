@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SearchView;
@@ -23,9 +24,9 @@ import java.util.ArrayList;
 public class MenuUser extends AppCompatActivity {
     RecyclerView recyclerViewBuku;
     RadioGroup radioGroup;
+    ImageView imageViewHome, imageViewAdd, imageViewprofile;
     RadioButton radioButtonJudul, radioButtonKategori;
     SearchView searchViewBuku;
-    Button buttonSave;
     Bundle bundle;
     Long id_data;
     String username;
@@ -49,9 +50,19 @@ public class MenuUser extends AppCompatActivity {
         recyclerViewBuku = findViewById(R.id.rvBuku);
         searchViewBuku = findViewById(R.id.searchViewBuku);
         radioGroup = findViewById(R.id.radioGroup);
+        imageViewHome = findViewById(R.id.imageViewHome);
+        imageViewAdd = findViewById(R.id.imageViewAdd);
+        imageViewprofile = findViewById(R.id.imageViewProfile);
         radioButtonJudul = findViewById(R.id.radioButtonJudul);
-        buttonSave = findViewById(R.id.buttonSave);
         searchViewBuku.clearFocus();
+        imageViewAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent = new Intent(MenuUser.this, AddBuku.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+        });
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -64,15 +75,6 @@ public class MenuUser extends AppCompatActivity {
             }
         });
 
-        buttonSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intent = new Intent(MenuUser.this, AddBuku.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-            }
-        });
-
         searchViewBuku.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -81,26 +83,18 @@ public class MenuUser extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                filterList(newText);
+                newText = newText.toLowerCase();
+                ArrayList<BukuModel> arrayList = new ArrayList<>();
+                for (BukuModel bukuModel : bukuModelArrayList) {
+                    String judul = bukuModel.getJudul().toLowerCase();
+                    if (judul.contains(newText)) {
+                        arrayList.add(bukuModel);
+                    }
+                }
+                bukuAdapter.setFilter(arrayList);
                 return true;
             }
         });
-    }
-
-    private void filterList(String newText) {
-        ArrayList<BukuModel> bukuModelArrayList1 = new ArrayList<>();
-        bukuModelArrayList1.clear();
-        for (BukuModel bukuModel : bukuModelArrayList) {
-            if (bukuModel.getJudul().toLowerCase().contains(newText.toLowerCase())) {
-                bukuModelArrayList1.add(bukuModel);
-            }
-        }
-
-        if (bukuModelArrayList1.isEmpty()) {
-            Toast.makeText(this, "data not found", Toast.LENGTH_SHORT).show();
-        } else {
-            bukuAdapter.setFilteredList(bukuModelArrayList1);
-        }
     }
 
     @Override

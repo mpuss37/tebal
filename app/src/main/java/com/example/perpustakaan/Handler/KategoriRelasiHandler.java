@@ -9,13 +9,13 @@ import com.example.perpustakaan.View.MainActivity;
 
 import java.util.ArrayList;
 
-public class KategoriHandler extends MainActivity {
+public class KategoriRelasiHandler extends MainActivity {
 
     Database database;
     String[] whereArgs;
     String whereClause;
 
-    public KategoriHandler(Context context) {
+    public KategoriRelasiHandler(Context context) {
         database = new Database(context);
     }
 
@@ -27,11 +27,12 @@ public class KategoriHandler extends MainActivity {
         sqLiteDatabase = database.getReadableDatabase();
     }
 
-    public long insertKategori(String kategori) {
+    public long insertKategoriRelasi(int id_buku, int id_kategori) {
         openWrite();
         contentValues = new ContentValues();
-        contentValues.put(database.col_kategori, kategori);
-        return sqLiteDatabase.insert(database.table_kategori, null, contentValues);
+        contentValues.put("id_buku", id_buku);
+        contentValues.put("id_kategori", id_kategori);
+        return sqLiteDatabase.insert(database.table_kategori_relasi, null, contentValues);
     }
 
     public long updateKategori(int id_buku, int id_user, int id_ulasan, String judul, String penulis, String penerbit, String tahunterbit) {
@@ -48,9 +49,9 @@ public class KategoriHandler extends MainActivity {
         return sqLiteDatabase.update(database.table_buku, contentValues, whereClause, whereArgs);
     }
 
-    public long readkategori(String kategori) {
+    public long readBuku(String username, String password) {
         id_data = -1;
-        query = "select * from kategori where nama_kategori = '" + kategori + "'";
+        query = "select * from user where username = '" + username + "' and password = '" + password + "'";
         cursor = sqLiteDatabase.rawQuery(query, null);
         if (cursor.moveToFirst()) {
             id_data = cursor.getInt(0);

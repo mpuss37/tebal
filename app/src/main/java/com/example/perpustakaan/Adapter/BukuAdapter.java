@@ -1,8 +1,5 @@
 package com.example.perpustakaan.Adapter;
 
-import static androidx.core.app.ActivityCompat.startActivityForResult;
-
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -39,10 +36,6 @@ public class BukuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public BukuAdapter(ArrayList<BukuModel> bukuModelArrayList, Context context) {
         this.bukuModelArrayList = bukuModelArrayList;
         this.context = context;
-    }
-
-    public void setFilteredList(ArrayList<BukuModel> bukuModelArrayList1){
-        this.bukuModelArrayList = bukuModelArrayList1;
     }
 
     @NonNull
@@ -106,13 +99,14 @@ public class BukuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
     }
 
+
     @Override
     public int getItemCount() {
         return bukuModelArrayList.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        TextView textViewIdBuku, textViewIdUser, textViewJudul, textViewPenulis, textViewPenerbit, textViewTahunTerbit;
+        TextView textViewIdBuku, textViewIdUser, textViewJudul, textViewPenulis, textViewPenerbit, textViewTahunTerbit, textViewKategori;
         ImageView imageViewRemove, imageViewBorrow;
         ConstraintLayout constraintLayout;
 
@@ -120,7 +114,7 @@ public class BukuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             super(itemView);
             textViewIdUser = itemView.findViewById(R.id.textViewIdUser);
             textViewIdBuku = itemView.findViewById(R.id.textViewIdBuku);
-            textViewJudul = itemView.findViewById(R.id.textViewNamaKategori);
+            textViewJudul = itemView.findViewById(R.id.textViewJudul);
             textViewPenulis = itemView.findViewById(R.id.textViewPenulis);
             textViewPenerbit = itemView.findViewById(R.id.textViewPenerbit);
             textViewTahunTerbit = itemView.findViewById(R.id.TextViewTahunTerbit);
@@ -128,5 +122,11 @@ public class BukuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             imageViewBorrow = itemView.findViewById(R.id.imageViewBorrow);
             constraintLayout = itemView.findViewById(R.id.cvData);
         }
+    }
+
+    public void setFilter(ArrayList<BukuModel> filter) {
+        bukuModelArrayList = new ArrayList<>();
+        bukuModelArrayList.addAll(filter);
+        notifyDataSetChanged();
     }
 }

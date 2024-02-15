@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.perpustakaan.Handler.BukuHandler;
 import com.example.perpustakaan.Handler.KategoriHandler;
+import com.example.perpustakaan.Handler.KategoriRelasiHandler;
 import com.example.perpustakaan.R;
 
 public class AddBuku extends AppCompatActivity {
@@ -21,10 +22,11 @@ public class AddBuku extends AppCompatActivity {
     Button buttonSave;
     BukuHandler bukuHandler;
     KategoriHandler kategoriHandler;
+    KategoriRelasiHandler kategoriRelasiHandler;
     Database database;
     Intent intent;
     String judul, penulis, penerbit, tahunterbit, kategori;
-    long id_buku;
+    long idBuku, idKategori;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,7 @@ public class AddBuku extends AppCompatActivity {
         database = new Database(this);
         bukuHandler = new BukuHandler(this);
         kategoriHandler = new KategoriHandler(this);
+        kategoriRelasiHandler = new KategoriRelasiHandler(this);
         intent = getIntent();
         editTextJudul = findViewById(R.id.editTextJudul);
         editTextPenulis = findViewById(R.id.editTextPenulis);
@@ -64,11 +67,18 @@ public class AddBuku extends AppCompatActivity {
                 if (nilai.equals("")) {
                     Toast.makeText(AddBuku.this, "input field", Toast.LENGTH_SHORT).show();
                 } else {
-                    id_buku = bukuHandler.readBuku(nilai[0], nilai[1]);
-                    if (id_buku == -1) {
+                    idBuku = bukuHandler.readBuku(nilai[0], nilai[1]);
+                    if (idBuku == -1) {
                         bukuHandler.insertBuku(nilai[0], nilai[1], nilai[2], nilai[3]);
+                        idBuku = bukuHandler.readBuku(nilai[0], nilai[1]);
                         if (!kategori.equals("")) {
                             kategoriHandler.insertKategori(kategori);
+                            idKategori = kategoriHandler.readkategori(kategori);
+                            kategoriRelasiHandler.insertKategoriRelasi((int)idBuku, (int) idKategori);
+                            if (idKategori != -1){
+                                Toast.makeText(AddBuku.this, "data kategori relation has been add"+idKategori, Toast.LENGTH_SHORT).show();
+                            }
+//                            kategoriRelasiHandler.insertKategoriRelasi(id_buku, );
                         }
                         Toast.makeText(AddBuku.this, "data has been add", Toast.LENGTH_SHORT).show();
                     }else {

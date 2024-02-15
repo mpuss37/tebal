@@ -47,8 +47,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
         userHandler = new UserHandler(this);
-        userHandler.openWrite();
-        userHandler.openRead();
         editTextUsername = findViewById(R.id.editTextUsername);
         editTextPass = findViewById(R.id.editTextPass);
         buttonSave = findViewById(R.id.buttonSave);

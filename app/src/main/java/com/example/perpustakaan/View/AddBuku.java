@@ -13,12 +13,14 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.perpustakaan.Handler.BukuHandler;
+import com.example.perpustakaan.Handler.KategoriHandler;
 import com.example.perpustakaan.R;
 
 public class AddBuku extends AppCompatActivity {
     EditText editTextJudul, editTextPenulis, editTextPenerbit, editTextTahunTerbit, editTextKategori;
     Button buttonSave;
     BukuHandler bukuHandler;
+    KategoriHandler kategoriHandler;
     Database database;
     Intent intent;
     String judul, penulis, penerbit, tahunterbit, kategori;
@@ -31,8 +33,10 @@ public class AddBuku extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         database = new Database(this);
         bukuHandler = new BukuHandler(this);
+        kategoriHandler = new KategoriHandler(this);
         intent = getIntent();
         bukuHandler.openWrite();
+        kategoriHandler.openWrite();
         editTextJudul = findViewById(R.id.editTextJudul);
         editTextPenulis = findViewById(R.id.editTextPenulis);
         editTextPenerbit = findViewById(R.id.editTextPenerbit);
@@ -62,6 +66,9 @@ public class AddBuku extends AppCompatActivity {
                     Toast.makeText(AddBuku.this, "input field", Toast.LENGTH_SHORT).show();
                 } else {
                     bukuHandler.insertBuku(nilai[0], nilai[1], nilai[2], nilai[3]);
+                    if (!kategori.equals("")){
+                        kategoriHandler.insertKategori(kategori);
+                    }
                     Toast.makeText(AddBuku.this, "data has been add", Toast.LENGTH_SHORT).show();
                 }
             }

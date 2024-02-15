@@ -50,8 +50,13 @@ public class Database extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table IF NOT EXISTS " + table_user + " (id_user integer primary key autoincrement, " + col_username + " text, " + col_password + " text, " + col_email + " text, " + col_nama_lengkap + " text, " + col_alamat + " text)");
         contentValues = new ContentValues();
+
         contentValues.put(col_username, "petugas");
         contentValues.put(col_password, "petugas");
+        db.insert(table_user, null, contentValues);
+
+        contentValues.put(col_username, "admin");
+        contentValues.put(col_password, "admin");
         db.insert(table_user, null, contentValues);
 
         db.execSQL("create table IF NOT EXISTS " + table_buku + " (id_buku integer primary key autoincrement, " + "id_ulasan integer, " + "id_user integer, " + col_judul + " text , " + col_penulis + " text, " + col_penerbit + " text, " + col_tahun_terbit + " text," + "FOREIGN KEY (id_ulasan) REFERENCES " + col_ulasan + "(id_ulasan)," + "FOREIGN KEY (id_user) REFERENCES " + table_user + "(id_user))");

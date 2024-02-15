@@ -8,12 +8,23 @@
     android:padding="8dp">
 
     <TextView
-        android:id="@+id/textViewIdKategori"
+        android:id="@+id/textViewIdBuku"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:text="TextViewIdBuku"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView2"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewIdUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="TextViewIdUser"
+        android:visibility="gone"
+        app:layout_constraintStart_toEndOf="@+id/textViewIdBuku"
+        app:layout_constraintTop_toTopOf="@+id/textViewIdBuku" />
 
     <TextView
         android:id="@+id/textViewNamaKategori"
@@ -21,8 +32,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="TextViewJudul"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewIdKategori" />
+        app:layout_constraintStart_toStartOf="@+id/textViewIdBuku"
+        app:layout_constraintTop_toBottomOf="@+id/textViewIdBuku" />
 
     <TextView
         android:id="@+id/TextViewTahunTerbit"
@@ -30,6 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="TextView"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="@+id/textViewPenerbit"
         app:layout_constraintTop_toBottomOf="@+id/textViewPenerbit" />
 
@@ -39,6 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="TextView"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="@+id/textViewNamaKategori"
         app:layout_constraintTop_toBottomOf="@+id/textViewNamaKategori" />
 
@@ -48,6 +61,36 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="TextView"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="@+id/textViewPenulis"
         app:layout_constraintTop_toBottomOf="@+id/textViewPenulis" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/book" />
+
+    <ImageView
+        android:id="@+id/imageViewRemove"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/remove" />
+
+    <ImageView
+        android:id="@+id/imageViewBorrow"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imageViewRemove"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/borrow" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

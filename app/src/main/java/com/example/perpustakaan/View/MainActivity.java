@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     protected String username, pass;
     protected Button buttonSave;
     ConstraintLayout constraintLayoutMain;
-    TextView textViewRegister;
+    TextView textViewRegister, textViewAdmin;
     protected SQLiteDatabase sqLiteDatabase;
     protected ContentValues contentValues;
     protected Intent intent;
@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         editTextPass = findViewById(R.id.editTextPass);
         buttonSave = findViewById(R.id.buttonSave);
         textViewRegister = findViewById(R.id.textViewRegister);
+        textViewAdmin = findViewById(R.id.textViewAdmin);
         constraintLayoutMain = findViewById(R.id.clMain);
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 } else if (buttonSave.getText().toString().equals("Register")) {
                     long id = userHandler.readUser(username, pass);
-                    if (id != -1) {
+                    if (id != -1 && username.equals("admin")) {
                         Toast.makeText(MainActivity.this, "username already used" + id, Toast.LENGTH_SHORT).show();
                     } else {
                         userHandler.insertUser(username, pass);
@@ -102,6 +103,16 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     buttonSave.setText("Login");
                     textViewRegister.setText("new account ??");
+                    Toast.makeText(MainActivity.this, "login as user", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        textViewAdmin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (buttonSave.getText().toString().equals("Login")) {
+                    buttonSave.setText("Admin");
+                    Toast.makeText(MainActivity.this, "Login as admin", Toast.LENGTH_SHORT).show();
                 }
             }
         });

@@ -29,6 +29,15 @@ public class UserHandler extends MainActivity {
         return sqLiteDatabase.insert(database.table_user, null, contentValues);
     }
 
+    public long updateUser(int id_user, String username, String password) {
+        contentValues = new ContentValues();
+        String whereClause = "id_user = ?";
+        String[] whereArgs = {String.valueOf(id_user)};
+        contentValues.put(database.col_username, username);
+        contentValues.put(database.col_password, password);
+        return sqLiteDatabase.update(database.table_user, contentValues, whereClause, whereArgs);
+    }
+
     public long readUser(String username, String password) {
         id_data = -1;
         query = "select * from user where username = '" + username + "' and password = '" + password + "'";

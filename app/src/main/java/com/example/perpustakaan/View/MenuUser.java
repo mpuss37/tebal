@@ -38,6 +38,8 @@ public class MenuUser extends AppCompatActivity {
         username = bundle.getString("key_username");
         bukuModelArrayList = new ArrayList<>();
         bukuHandler = new BukuHandler(MenuUser.this);
+        bukuAdapter = new BukuAdapter(bukuModelArrayList, this);
+        bukuHandler.openWrite();
         recyclerViewBuku = findViewById(R.id.rvBuku);
         recyclerViewKategori = findViewById(R.id.rvKategori);
         buttonSave = findViewById(R.id.buttonSave);

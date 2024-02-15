@@ -7,7 +7,7 @@
     android:padding="8dp">
 
     <TextView
-        android:id="@+id/textViewIdKategori"
+        android:id="@+id/textViewIdBuku"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="textViewIdKategori"
@@ -21,6 +21,6 @@
         android:layout_marginTop="8dp"
         android:text="textViewNamaKategori"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewIdKategori" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewIdBuku" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

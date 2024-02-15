@@ -2,7 +2,6 @@ package com.example.perpustakaan.Handler;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.util.Log;
 
 import com.example.perpustakaan.Model.BukuModel;
 import com.example.perpustakaan.View.Database;
@@ -10,13 +9,13 @@ import com.example.perpustakaan.View.MainActivity;
 
 import java.util.ArrayList;
 
-public class BukuHandler extends MainActivity {
+public class KoleksiHandler extends MainActivity {
 
     Database database;
     String[] whereArgs;
     String whereClause;
 
-    public BukuHandler(Context context) {
+    public KoleksiHandler(Context context) {
         database = new Database(context);
     }
 
@@ -28,16 +27,14 @@ public class BukuHandler extends MainActivity {
         sqLiteDatabase = database.getReadableDatabase();
     }
 
-    public long insertBuku(String judul, String penulis, String penerbit, String tahunterbit) {
+    public long insertKoleksi(int id_user, int id_buku) {
         contentValues = new ContentValues();
-        contentValues.put(database.col_judul, judul);
-        contentValues.put(database.col_penulis, penulis);
-        contentValues.put(database.col_penerbit, penerbit);
-        contentValues.put(database.col_tahun_terbit, tahunterbit);
+        contentValues.put("id_user", id_user);
+        contentValues.put("id_buku", id_buku);
         return sqLiteDatabase.insert(database.table_buku, null, contentValues);
     }
 
-    public long updateBuku(int id_buku, int id_user, int id_ulasan, String judul, String penulis, String penerbit, String tahunterbit) {
+    public long updateKategori(int id_buku, int id_user, int id_ulasan, String judul, String penulis, String penerbit, String tahunterbit) {
         contentValues = new ContentValues();
         whereClause = "id_buku = ?";
         whereArgs = new String[]{String.valueOf(id_buku)};
@@ -61,10 +58,12 @@ public class BukuHandler extends MainActivity {
         return id_data;
     }
 
-    public void deleteBuku(String id_buku) {
-        openWrite();
-        sqLiteDatabase.delete(database.table_buku, " id_buku = '" + id_buku + "'", null);
+    public void deleteBuku(int id_buku) {
+        whereClause = "id_buku = ?";
+        whereArgs = new String[]{String.valueOf(id_buku)};
+        sqLiteDatabase.delete(database.table_buku, whereClause, whereArgs);
     }
+
 
     public ArrayList<BukuModel> displayBuku(long id_user) {
         sqLiteDatabase = database.getReadableDatabase();

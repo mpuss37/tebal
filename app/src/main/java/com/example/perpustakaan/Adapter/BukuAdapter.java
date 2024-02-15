@@ -1,5 +1,8 @@
 package com.example.perpustakaan.Adapter;
 
+import static androidx.core.app.ActivityCompat.startActivityForResult;
+
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -38,6 +41,10 @@ public class BukuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         this.context = context;
     }
 
+    public void setFilteredList(ArrayList<BukuModel> bukuModelArrayList1){
+        this.bukuModelArrayList = bukuModelArrayList1;
+    }
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -58,16 +65,15 @@ public class BukuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             viewHolder.textViewPenerbit.setText(String.valueOf(bukuModel.getPenerbit()));
             viewHolder.textViewTahunTerbit.setText(String.valueOf(bukuModel.getTahunterbit()));
 
-            id_buku = viewHolder.textViewIdBuku.getText().toString();
-            id_user = viewHolder.textViewIdUser.getText().toString();
-            judul = viewHolder.textViewJudul.getText().toString();
-            penulis = viewHolder.textViewPenulis.getText().toString();
-            penerbit = viewHolder.textViewPenerbit.getText().toString();
-            tahunterbit = viewHolder.textViewTahunTerbit.getText().toString();
-
             viewHolder.constraintLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    id_buku = viewHolder.textViewIdBuku.getText().toString();
+                    id_user = viewHolder.textViewIdUser.getText().toString();
+                    judul = viewHolder.textViewJudul.getText().toString();
+                    penulis = viewHolder.textViewPenulis.getText().toString();
+                    penerbit = viewHolder.textViewPenerbit.getText().toString();
+                    tahunterbit = viewHolder.textViewTahunTerbit.getText().toString();
                     Toast.makeText(context, "edit buku", Toast.LENGTH_SHORT).show();
                     intent = new Intent(context, AddBuku.class);
                     intent.putExtra("key_judul", judul);
@@ -90,6 +96,8 @@ public class BukuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 @Override
                 public void onClick(View v) {
                     bukuModelArrayList.remove(holder.getAdapterPosition());
+                    id_buku = viewHolder.textViewIdBuku.getText().toString();
+                    judul = viewHolder.textViewJudul.getText().toString();
                     bukuHandler.deleteBuku(id_buku);
                     Toast.makeText(context, "delete, Username : " + judul, Toast.LENGTH_SHORT).show();
                     notifyItemRemoved(holder.getAdapterPosition());

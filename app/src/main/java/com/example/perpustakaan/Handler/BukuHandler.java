@@ -29,6 +29,7 @@ public class BukuHandler extends MainActivity {
     }
 
     public long insertBuku(String judul, String penulis, String penerbit, String tahunterbit) {
+        openWrite();
         contentValues = new ContentValues();
         contentValues.put(database.col_judul, judul);
         contentValues.put(database.col_penulis, penulis);
@@ -51,9 +52,10 @@ public class BukuHandler extends MainActivity {
         return sqLiteDatabase.update(database.table_buku, contentValues, whereClause, whereArgs);
     }
 
-    public long readBuku(String username, String password) {
+    public long readBuku(String judul, String penulis) {
+        openRead();
         id_data = -1;
-        query = "select * from user where username = '" + username + "' and password = '" + password + "'";
+        query = "select * from buku where judul = '" + judul + "' and penulis = '" + penulis + "'";
         cursor = sqLiteDatabase.rawQuery(query, null);
         if (cursor.moveToFirst()) {
             id_data = cursor.getInt(0);
@@ -63,11 +65,11 @@ public class BukuHandler extends MainActivity {
 
     public void deleteBuku(String id_buku) {
         openWrite();
-        sqLiteDatabase.delete(database.table_buku, " id_buku = '" + id_buku + "'", null);
+        sqLiteDatabase.delete(database.table_buku, "id_buku = '" + id_buku + "'", null);
     }
 
     public ArrayList<BukuModel> displayBuku(long id_user) {
-        sqLiteDatabase = database.getReadableDatabase();
+        openRead();
         cursor = sqLiteDatabase.rawQuery("select * from buku", null);
         bukuModelArrayList = new ArrayList<>();
         if (cursor.moveToFirst()) {

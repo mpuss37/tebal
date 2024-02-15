@@ -8,6 +8,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.SearchView;
+import android.widget.Toast;
 
 import com.example.perpustakaan.Adapter.BukuAdapter;
 import com.example.perpustakaan.Handler.BukuHandler;
@@ -17,7 +21,10 @@ import com.example.perpustakaan.R;
 import java.util.ArrayList;
 
 public class MenuUser extends AppCompatActivity {
-    RecyclerView recyclerViewBuku, recyclerViewKategori;
+    RecyclerView recyclerViewBuku;
+    RadioGroup radioGroup;
+    RadioButton radioButtonJudul, radioButtonKategori;
+    SearchView searchViewBuku;
     Button buttonSave;
     Bundle bundle;
     Long id_data;
@@ -39,10 +46,23 @@ public class MenuUser extends AppCompatActivity {
         bukuModelArrayList = new ArrayList<>();
         bukuHandler = new BukuHandler(MenuUser.this);
         bukuAdapter = new BukuAdapter(bukuModelArrayList, this);
-        bukuHandler.openWrite();
         recyclerViewBuku = findViewById(R.id.rvBuku);
-        recyclerViewKategori = findViewById(R.id.rvKategori);
+        searchViewBuku = findViewById(R.id.searchViewBuku);
+        radioGroup = findViewById(R.id.radioGroup);
+        radioButtonJudul = findViewById(R.id.radioButtonJudul);
         buttonSave = findViewById(R.id.buttonSave);
+        searchViewBuku.clearFocus();
+
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId == R.id.radioButtonKategori) {
+                    Toast.makeText(MenuUser.this, "filter by kategori", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(MenuUser.this, "filter by judul", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,6 +72,35 @@ public class MenuUser extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        searchViewBuku.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterList(newText);
+                return true;
+            }
+        });
+    }
+
+    private void filterList(String newText) {
+        ArrayList<BukuModel> bukuModelArrayList1 = new ArrayList<>();
+        bukuModelArrayList1.clear();
+        for (BukuModel bukuModel : bukuModelArrayList) {
+            if (bukuModel.getJudul().toLowerCase().contains(newText.toLowerCase())) {
+                bukuModelArrayList1.add(bukuModel);
+            }
+        }
+
+        if (bukuModelArrayList1.isEmpty()) {
+            Toast.makeText(this, "data not found", Toast.LENGTH_SHORT).show();
+        } else {
+            bukuAdapter.setFilteredList(bukuModelArrayList1);
+        }
     }
 
     @Override

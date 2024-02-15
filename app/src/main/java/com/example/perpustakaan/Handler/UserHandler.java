@@ -23,6 +23,7 @@ public class UserHandler extends MainActivity {
     }
 
     public long insertUser(String username, String password) {
+        openWrite();
         contentValues = new ContentValues();
         contentValues.put(database.col_username, username);
         contentValues.put(database.col_password, password);
@@ -39,6 +40,7 @@ public class UserHandler extends MainActivity {
     }
 
     public long readUser(String username, String password) {
+        openRead();
         id_data = -1;
         query = "select * from user where username = '" + username + "' and password = '" + password + "'";
         cursor = sqLiteDatabase.rawQuery(query,null);

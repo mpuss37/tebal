@@ -10,10 +10,11 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvBuku"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonSave"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup"
         tools:listitem="@layout/item_buku" />
 
     <Button
@@ -26,14 +27,39 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvKategori"
+    <SearchView
+        android:id="@+id/searchViewBuku"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:iconifiedByDefault="false"
+        android:queryHint="search your book"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rvBuku"
-        tools:listitem="@layout/item_kategori" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="@+id/searchViewBuku"
+        app:layout_constraintStart_toStartOf="@+id/searchViewBuku"
+        app:layout_constraintTop_toBottomOf="@+id/searchViewBuku">
+
+        <RadioButton
+            android:id="@+id/radioButtonJudul"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:checked="true"
+            android:text="Judul" />
+
+        <RadioButton
+            android:id="@+id/radioButtonKategori"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Kategori" />
+    </RadioGroup>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

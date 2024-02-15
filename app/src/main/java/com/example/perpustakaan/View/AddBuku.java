@@ -24,6 +24,7 @@ public class AddBuku extends AppCompatActivity {
     Database database;
     Intent intent;
     String judul, penulis, penerbit, tahunterbit, kategori;
+    long id_buku;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +36,6 @@ public class AddBuku extends AppCompatActivity {
         bukuHandler = new BukuHandler(this);
         kategoriHandler = new KategoriHandler(this);
         intent = getIntent();
-        bukuHandler.openWrite();
-        kategoriHandler.openWrite();
         editTextJudul = findViewById(R.id.editTextJudul);
         editTextPenulis = findViewById(R.id.editTextPenulis);
         editTextPenerbit = findViewById(R.id.editTextPenerbit);
@@ -61,15 +60,20 @@ public class AddBuku extends AppCompatActivity {
                 penerbit = editTextPenerbit.getText().toString();
                 tahunterbit = editTextTahunTerbit.getText().toString();
                 kategori = editTextKategori.getText().toString();
-                String[] nilai = {judul, penerbit, penerbit, tahunterbit};
+                String[] nilai = {judul, penulis, penerbit, tahunterbit};
                 if (nilai.equals("")) {
                     Toast.makeText(AddBuku.this, "input field", Toast.LENGTH_SHORT).show();
                 } else {
-                    bukuHandler.insertBuku(nilai[0], nilai[1], nilai[2], nilai[3]);
-                    if (!kategori.equals("")){
-                        kategoriHandler.insertKategori(kategori);
+                    id_buku = bukuHandler.readBuku(nilai[0], nilai[1]);
+                    if (id_buku == -1) {
+                        bukuHandler.insertBuku(nilai[0], nilai[1], nilai[2], nilai[3]);
+                        if (!kategori.equals("")) {
+                            kategoriHandler.insertKategori(kategori);
+                        }
+                        Toast.makeText(AddBuku.this, "data has been add", Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(AddBuku.this, "change yours data", Toast.LENGTH_SHORT).show();
                     }
-                    Toast.makeText(AddBuku.this, "data has been add", Toast.LENGTH_SHORT).show();
                 }
             }
         });

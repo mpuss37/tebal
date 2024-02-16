@@ -2,6 +2,7 @@ package com.example.perpustakaan.Handler;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.widget.Toast;
 
 import com.example.perpustakaan.View.Database;
 import com.example.perpustakaan.View.MainActivity;
@@ -30,12 +31,16 @@ public class UserHandler extends MainActivity {
         return sqLiteDatabase.insert(database.table_user, null, contentValues);
     }
 
-    public long updateUser(int id_user, String username, String password) {
+    public long updateUser(long id_user, String username, String password, String email, String namalengkap, String alamat) {
+        openWrite();
         contentValues = new ContentValues();
         String whereClause = "id_user = ?";
         String[] whereArgs = {String.valueOf(id_user)};
         contentValues.put(database.col_username, username);
         contentValues.put(database.col_password, password);
+        contentValues.put(database.col_password, email);
+        contentValues.put(database.col_password, namalengkap);
+        contentValues.put(database.col_password, alamat);
         return sqLiteDatabase.update(database.table_user, contentValues, whereClause, whereArgs);
     }
 

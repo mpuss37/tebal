@@ -16,8 +16,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.perpustakaan.Adapter.BukuAdapter;
-import com.example.perpustakaan.Handler.BukuHandler;
 import com.example.perpustakaan.Handler.UserHandler;
 import com.example.perpustakaan.Model.BukuModel;
 import com.example.perpustakaan.Model.UserModel;
@@ -47,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
         userHandler = new UserHandler(this);
-        editTextUsername = findViewById(R.id.editTextUsername);
+        editTextUsername = findViewById(R.id.editTextPassword);
         editTextPass = findViewById(R.id.editTextPass);
         buttonSave = findViewById(R.id.buttonSave);
         textViewRegister = findViewById(R.id.textViewRegister);
@@ -67,14 +65,15 @@ public class MainActivity extends AppCompatActivity {
                     if (id_data != -1) {
                         intent.putExtra("key_id_user", id_data);
                         intent.putExtra("key_username", username);
+                        intent.putExtra("key_password", pass);
                         startActivity(intent);
                     } else {
                         Toast.makeText(MainActivity.this, "your user/pass false", Toast.LENGTH_SHORT).show();
                     }
                 } else if (buttonSave.getText().toString().equals("Register")) {
-                    long id = userHandler.readUser(username, pass);
-                    if (id != -1 && username.equals("admin")) {
-                        Toast.makeText(MainActivity.this, "username already used" + id, Toast.LENGTH_SHORT).show();
+                    id_data = userHandler.readUser(username, pass);
+                    if (id_data != -1 && username.equals("admin")) {
+                        Toast.makeText(MainActivity.this, "username already used" + id_data, Toast.LENGTH_SHORT).show();
                     } else {
                         userHandler.insertUser(username, pass);
                         Toast.makeText(MainActivity.this, "data has been add", Toast.LENGTH_SHORT).show();

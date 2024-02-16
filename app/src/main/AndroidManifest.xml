@@ -13,9 +13,13 @@
         android:theme="@style/Theme.Perpustakaan"
         tools:targetApi="31">
         <activity
+            android:name=".View.MenuProfile"
+            android:exported="false"
+            android:parentActivityName=".View.MenuProfile" />
+        <activity
             android:name=".View.AddBuku"
             android:exported="false"
-            android:parentActivityName=".View.AddBuku"
+            android:parentActivityName=".View.MenuUser"
             android:screenOrientation="portrait" />
         <activity
             android:name=".View.MenuUser"
@@ -29,6 +33,7 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".View.MenuUser" />
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -29,7 +29,7 @@ public class MenuUser extends AppCompatActivity {
     SearchView searchViewBuku;
     Bundle bundle;
     Long id_data;
-    String username;
+    String username, password;
     ArrayList<BukuModel> bukuModelArrayList;
     BukuHandler bukuHandler;
     BukuAdapter bukuAdapter;
@@ -44,6 +44,7 @@ public class MenuUser extends AppCompatActivity {
         bundle = this.getIntent().getExtras();
         id_data = bundle.getLong("key_id_user");
         username = bundle.getString("key_username");
+        password = bundle.getString("key_password");
         bukuModelArrayList = new ArrayList<>();
         bukuHandler = new BukuHandler(MenuUser.this);
         bukuAdapter = new BukuAdapter(bukuModelArrayList, this);
@@ -60,6 +61,18 @@ public class MenuUser extends AppCompatActivity {
             public void onClick(View v) {
                 intent = new Intent(MenuUser.this, AddBuku.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+        });
+
+        imageViewprofile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent = new Intent(MenuUser.this, MenuProfile.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra("key_id_user", id_data);
+                intent.putExtra("key_username", username);
+                intent.putExtra("key_password", password);
                 startActivity(intent);
             }
         });

@@ -11,6 +11,7 @@
         android:id="@+id/editTextKategori"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="0dp"
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="kategori"
@@ -23,6 +24,7 @@
         android:id="@+id/editTextJudul"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="0dp"
         android:ems="10"
         android:hint="judul"
         android:inputType="text"
@@ -35,6 +37,7 @@
         android:id="@+id/editTextPenulis"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="0dp"
         android:layout_marginTop="8dp"
         android:hint="penulis"
         android:inputType="text"
@@ -46,6 +49,7 @@
         android:id="@+id/editTextPenerbit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="0dp"
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="penerbit"
@@ -58,6 +62,7 @@
         android:id="@+id/editTextTahunTerbit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="0dp"
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="tahun terbit"
@@ -75,4 +80,13 @@
         app:layout_constraintEnd_toEndOf="@+id/editTextKategori"
         app:layout_constraintStart_toStartOf="@+id/editTextKategori"
         app:layout_constraintTop_toBottomOf="@+id/editTextKategori" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvUlasan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonSave" />
 </androidx.constraintlayout.widget.ConstraintLayout>

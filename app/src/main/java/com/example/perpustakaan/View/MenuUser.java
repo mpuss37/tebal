@@ -47,7 +47,7 @@ public class MenuUser extends AppCompatActivity {
         password = bundle.getString("key_password");
         bukuModelArrayList = new ArrayList<>();
         bukuHandler = new BukuHandler(MenuUser.this);
-        bukuAdapter = new BukuAdapter(bukuModelArrayList, this);
+        bukuAdapter = new BukuAdapter(bukuModelArrayList, this, username);
         recyclerViewBuku = findViewById(R.id.rvBuku);
         searchViewBuku = findViewById(R.id.searchViewBuku);
         radioGroup = findViewById(R.id.radioGroup);
@@ -116,7 +116,7 @@ public class MenuUser extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MenuUser.this, RecyclerView.VERTICAL, false);
         recyclerViewBuku.setLayoutManager(linearLayoutManager);
         bukuModelArrayList = bukuHandler.displayBuku(id_data);
-        bukuAdapter = new BukuAdapter(bukuModelArrayList, this);
+        bukuAdapter = new BukuAdapter(bukuModelArrayList, this, username);
         recyclerViewBuku.setAdapter(bukuAdapter);
         bukuAdapter.notifyDataSetChanged();
     }

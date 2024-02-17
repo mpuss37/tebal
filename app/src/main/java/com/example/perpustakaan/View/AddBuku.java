@@ -3,6 +3,7 @@ package com.example.perpustakaan.View;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NavUtils;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,12 +21,13 @@ import com.example.perpustakaan.R;
 public class AddBuku extends AppCompatActivity {
     EditText editTextJudul, editTextPenulis, editTextPenerbit, editTextTahunTerbit, editTextKategori;
     Button buttonSave;
+    RecyclerView recyclerViewUlasan;
     BukuHandler bukuHandler;
     KategoriHandler kategoriHandler;
     KategoriRelasiHandler kategoriRelasiHandler;
     Database database;
     Intent intent;
-    String judul, penulis, penerbit, tahunterbit, kategori;
+    String judul, penulis, penerbit, tahunterbit, kategori, username;
     long idBuku, idKategori;
 
     @Override
@@ -44,11 +46,23 @@ public class AddBuku extends AppCompatActivity {
         editTextPenerbit = findViewById(R.id.editTextPenerbit);
         editTextTahunTerbit = findViewById(R.id.editTextTahunTerbit);
         editTextKategori = findViewById(R.id.editTextKategori);
+        recyclerViewUlasan = findViewById(R.id.rvUlasan);
 
         judul = intent.getStringExtra("key_judul");
         penulis = intent.getStringExtra("key_penulis");
         penerbit = intent.getStringExtra("key_penerbit");
         tahunterbit = intent.getStringExtra("key_tahun_terbit");
+        username = intent.getStringExtra("key_username");
+        if (username.equals("admin") || equals("petugas")){
+            editTextJudul.setVisibility(View.GONE);
+            editTextPenulis.setVisibility(View.GONE);
+            editTextPenerbit.setVisibility(View.GONE);
+            editTextTahunTerbit.setVisibility(View.GONE);
+            editTextKategori.setVisibility(View.GONE);
+
+            editTextJudul.setHint("ulasan......");
+            recyclerViewUlasan.setVisibility(View.VISIBLE);
+        }
         editTextJudul.setText(judul);
         editTextPenulis.setText(penulis);
         editTextPenerbit.setText(penerbit);

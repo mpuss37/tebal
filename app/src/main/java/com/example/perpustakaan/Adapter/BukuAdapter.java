@@ -31,11 +31,12 @@ public class BukuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     Context context;
     AddBuku addBuku;
     int id;
-    String id_buku, id_user, judul, penulis, penerbit, tahunterbit;
+    String id_buku, id_user, judul, penulis, penerbit, tahunterbit, username;
 
-    public BukuAdapter(ArrayList<BukuModel> bukuModelArrayList, Context context) {
+    public BukuAdapter(ArrayList<BukuModel> bukuModelArrayList, Context context, String username) {
         this.bukuModelArrayList = bukuModelArrayList;
         this.context = context;
+        this.username = username;
     }
 
     @NonNull
@@ -52,6 +53,10 @@ public class BukuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         koleksiHandler = new KoleksiHandler(context);
         if (holder instanceof ViewHolder) {
             ViewHolder viewHolder = (ViewHolder) holder;
+            Toast.makeText(context, "welkam bek " + username, Toast.LENGTH_SHORT).show();
+            if (username.equals("admin") || equals("petugas")) {
+                viewHolder.imageViewBorrow.setVisibility(View.GONE);
+            }
             viewHolder.textViewIdBuku.setText(String.valueOf(bukuModel.getId_buku()));
             viewHolder.textViewJudul.setText(String.valueOf(bukuModel.getJudul()));
             viewHolder.textViewPenulis.setText(String.valueOf(bukuModel.getPenulis()));
@@ -73,6 +78,7 @@ public class BukuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     intent.putExtra("key_penulis", penulis);
                     intent.putExtra("key_penerbit", penerbit);
                     intent.putExtra("key_tahun_terbit", tahunterbit);
+                    intent.putExtra("key_username", username);
                     context.startActivity(intent);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 }

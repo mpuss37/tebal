@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
                 } else if (buttonSave.getText().toString().equals("Register")) {
                     id_data = userHandler.readUser(username, pass);
                     if (id_data != -1 && username.equals("admin")) {
-                        Toast.makeText(MainActivity.this, "username already used" + id_data, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "username already used", Toast.LENGTH_SHORT).show();
                     } else {
                         userHandler.insertUser(username, pass);
                         Toast.makeText(MainActivity.this, "data has been add", Toast.LENGTH_SHORT).show();

@@ -10,9 +10,11 @@ import android.widget.Toast;
 
 import com.example.perpustakaan.Handler.UserHandler;
 import com.example.perpustakaan.R;
+import com.google.android.material.textfield.TextInputLayout;
 
 public class MenuProfile extends AppCompatActivity {
     EditText editTextUsername, editTextPassword, editTextEmail, editTextNamaLengkap, editTextAlamat;
+    TextInputLayout textInputLayoutPassword;
     String username, password, email, namalengkap, alamat;
     Button buttonSave;
     Bundle bundle;
@@ -34,7 +36,12 @@ public class MenuProfile extends AppCompatActivity {
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextNamaLengkap = findViewById(R.id.editTextNamaLengkap);
         editTextAlamat = findViewById(R.id.editTextAlamat);
+        textInputLayoutPassword = findViewById(R.id.textInputLayoutPass);
         buttonSave = findViewById(R.id.buttonSave);
+
+        if (username.equals("admin") || equals("petugas")) {
+            editTextUsername.setVisibility(View.GONE);
+        }
 
         editTextUsername.setText(username);
         editTextPassword.setText(password);

@@ -72,7 +72,7 @@ public class KategoriRelasiHandler extends MainActivity {
         bukuModelArrayList = new ArrayList<>();
         if (cursor.moveToFirst()) {
             do {
-                bukuModelArrayList.add(new BukuModel(cursor.getInt(0), cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getString(6)));
+                bukuModelArrayList.add(new BukuModel(cursor.getInt(0), cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7)));
             } while (cursor.moveToNext());
         }
         cursor.close();

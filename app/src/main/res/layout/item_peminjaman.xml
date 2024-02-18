@@ -31,19 +31,40 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="TextViewJudul"
+        android:text="TextViewIdBuku"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/textViewIdPeminjaman"
         app:layout_constraintTop_toBottomOf="@+id/textViewIdPeminjaman" />
 
     <TextView
-        android:id="@+id/textViewStatus"
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:text="status"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/textViewIdBuku"
         app:layout_constraintTop_toBottomOf="@+id/textViewIdBuku" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="tnggl-awal"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/textView"
+        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintTop_toTopOf="@+id/textView" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="tnggl-awal"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/textView3"
+        app:layout_constraintStart_toEndOf="@+id/textView3"
+        app:layout_constraintTop_toTopOf="@+id/textView3" />
 
     <TextView
         android:id="@+id/TextViewTahunTerbit"

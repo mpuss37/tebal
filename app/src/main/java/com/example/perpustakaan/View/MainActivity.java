@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.perpustakaan.Handler.UserHandler;
 import com.example.perpustakaan.Model.BukuModel;
+import com.example.perpustakaan.Model.UlasanModel;
 import com.example.perpustakaan.Model.UserModel;
 import com.example.perpustakaan.R;
 
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     protected Cursor cursor;
     protected ArrayList<BukuModel> bukuModelArrayList;
     protected ArrayList<UserModel> userModelArrayList;
+    protected ArrayList<UlasanModel> ulasanModelArrayList;
     protected UserHandler userHandler;
     protected String query;
     protected long id_data;
@@ -72,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 } else if (buttonSave.getText().toString().equals("Register")) {
                     id_data = userHandler.readUser(username, pass);
-                    if (id_data != -1 && username.equals("admin")) {
+                    if (id_data != -1 && username.equals("admin") || username.equals("petugas")) {
                         Toast.makeText(MainActivity.this, "username already used", Toast.LENGTH_SHORT).show();
                     } else {
                         userHandler.insertUser(username, pass);

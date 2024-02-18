@@ -2,14 +2,15 @@ package com.example.perpustakaan.Model;
 
 public class BukuModel {
     private int id_buku;
-    private String judul, penulis, penerbit, tahunterbit;
+    private String judul, penulis, penerbit, tahunterbit, kategori;
 
-    public BukuModel(int id_buku, String judul, String penulis, String penerbit, String tahunterbit) {
+    public BukuModel(int id_buku, String judul, String penulis, String penerbit, String tahunterbit, String kategori) {
         this.id_buku = id_buku;
         this.judul = judul;
         this.penulis = penulis;
         this.penerbit = penerbit;
         this.tahunterbit = tahunterbit;
+        this.kategori = kategori;
     }
 
     public int getId_buku() {
@@ -50,5 +51,13 @@ public class BukuModel {
 
     public void setTahunterbit(String tahunterbit) {
         this.tahunterbit = tahunterbit;
+    }
+
+    public String getKategori() {
+        return kategori;
+    }
+
+    public void setKategori(String kategori) {
+        this.kategori = kategori;
     }
 }

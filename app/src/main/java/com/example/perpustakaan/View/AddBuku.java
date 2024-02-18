@@ -3,6 +3,7 @@ package com.example.perpustakaan.View;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NavUtils;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -13,15 +14,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.perpustakaan.Adapter.BukuAdapter;
 import com.example.perpustakaan.Handler.BukuHandler;
 import com.example.perpustakaan.Handler.KategoriHandler;
 import com.example.perpustakaan.Handler.KategoriRelasiHandler;
+import com.example.perpustakaan.Model.BukuModel;
 import com.example.perpustakaan.R;
+
+import java.util.ArrayList;
 
 public class AddBuku extends AppCompatActivity {
     EditText editTextJudul, editTextPenulis, editTextPenerbit, editTextTahunTerbit, editTextKategori;
     Button buttonSave;
-    RecyclerView recyclerViewUlasan;
     BukuHandler bukuHandler;
     KategoriHandler kategoriHandler;
     KategoriRelasiHandler kategoriRelasiHandler;
@@ -46,27 +50,18 @@ public class AddBuku extends AppCompatActivity {
         editTextPenerbit = findViewById(R.id.editTextPenerbit);
         editTextTahunTerbit = findViewById(R.id.editTextTahunTerbit);
         editTextKategori = findViewById(R.id.editTextKategori);
-        recyclerViewUlasan = findViewById(R.id.rvUlasan);
 
         judul = intent.getStringExtra("key_judul");
         penulis = intent.getStringExtra("key_penulis");
         penerbit = intent.getStringExtra("key_penerbit");
         tahunterbit = intent.getStringExtra("key_tahun_terbit");
+        kategori = intent.getStringExtra("key_kategori");
         username = intent.getStringExtra("key_username");
-        if (username.equals("admin") || equals("petugas")){
-            editTextJudul.setVisibility(View.GONE);
-            editTextPenulis.setVisibility(View.GONE);
-            editTextPenerbit.setVisibility(View.GONE);
-            editTextTahunTerbit.setVisibility(View.GONE);
-            editTextKategori.setVisibility(View.GONE);
-
-            editTextJudul.setHint("ulasan......");
-            recyclerViewUlasan.setVisibility(View.VISIBLE);
-        }
         editTextJudul.setText(judul);
         editTextPenulis.setText(penulis);
         editTextPenerbit.setText(penerbit);
         editTextTahunTerbit.setText(tahunterbit);
+        editTextKategori.setText(kategori);
 
         buttonSave = findViewById(R.id.buttonSave);
         buttonSave.setOnClickListener(new View.OnClickListener() {
@@ -88,14 +83,13 @@ public class AddBuku extends AppCompatActivity {
                         if (!kategori.equals("")) {
                             kategoriHandler.insertKategori(kategori);
                             idKategori = kategoriHandler.readkategori(kategori);
-                            kategoriRelasiHandler.insertKategoriRelasi((int)idBuku, (int) idKategori);
-                            if (idKategori != -1){
-                                Toast.makeText(AddBuku.this, "data kategori relation has been add"+idKategori, Toast.LENGTH_SHORT).show();
+                            kategoriRelasiHandler.insertKategoriRelasi((int) idBuku, (int) idKategori);
+                            if (idKategori != -1) {
+                                Toast.makeText(AddBuku.this, "data kategori relation has been add" + idKategori, Toast.LENGTH_SHORT).show();
                             }
-//                            kategoriRelasiHandler.insertKategoriRelasi(id_buku, );
                         }
                         Toast.makeText(AddBuku.this, "data has been add", Toast.LENGTH_SHORT).show();
-                    }else {
+                    } else {
                         Toast.makeText(AddBuku.this, "change yours data", Toast.LENGTH_SHORT).show();
                     }
                 }

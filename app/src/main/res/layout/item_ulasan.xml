@@ -21,8 +21,9 @@
         android:id="@+id/TextViewIdUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:text="TextViewIdUser"
-        android:visibility="gone"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/textViewIdPeminjaman"
         app:layout_constraintTop_toTopOf="@+id/textViewIdPeminjaman" />
 
@@ -30,58 +31,43 @@
         android:id="@+id/textViewIdBuku"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="TextViewJudul"
+        android:text="TextViewUsername"
         android:textStyle="bold"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="@+id/textViewIdPeminjaman"
         app:layout_constraintTop_toBottomOf="@+id/textViewIdPeminjaman" />
 
     <TextView
-        android:id="@+id/textViewStatus"
+        android:id="@+id/TextViewUlasan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:text="TextViewUlasan"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/textViewIdBuku"
-        app:layout_constraintTop_toBottomOf="@+id/textViewIdBuku" />
+        app:layout_constraintStart_toStartOf="@+id/TextViewIdUser"
+        app:layout_constraintTop_toBottomOf="@+id/TextViewIdUser" />
 
     <TextView
-        android:id="@+id/TextViewTahunTerbit"
+        android:id="@+id/TextViewRating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="TextView"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="@+id/textViewStatus"
-        app:layout_constraintTop_toBottomOf="@+id/textViewStatus" />
-
-    <TextView
-        android:id="@+id/textViewPenulis"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="TextView"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="@+id/textViewIdBuku"
-        app:layout_constraintTop_toBottomOf="@+id/textViewIdBuku" />
-
-    <TextView
-        android:id="@+id/textViewPenerbit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="TextView"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="@+id/textViewPenulis"
-        app:layout_constraintTop_toBottomOf="@+id/textViewPenulis" />
+        android:layout_marginStart="8dp"
+        android:text="TextViewRating"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/TextViewUlasan"
+        app:layout_constraintStart_toEndOf="@+id/TextViewUlasan"
+        app:layout_constraintTop_toTopOf="@+id/TextViewUlasan" />
 
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="30dp"
         android:layout_height="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/book" />
+        app:srcCompat="@drawable/user" />
 
     <ImageView
         android:id="@+id/imageViewRemove"
@@ -101,6 +87,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/imageViewRemove"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/borrow" />
+        app:srcCompat="@drawable/like" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

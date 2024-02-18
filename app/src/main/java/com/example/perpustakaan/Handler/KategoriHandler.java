@@ -65,16 +65,16 @@ public class KategoriHandler extends MainActivity {
     }
 
 
-    public ArrayList<BukuModel> displayBuku(long id_user) {
-        sqLiteDatabase = database.getReadableDatabase();
-        cursor = sqLiteDatabase.rawQuery("select * from buku", null);
-        bukuModelArrayList = new ArrayList<>();
-        if (cursor.moveToFirst()) {
-            do {
-                bukuModelArrayList.add(new BukuModel(cursor.getInt(0), cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getString(6)));
-            } while (cursor.moveToNext());
-        }
-        cursor.close();
-        return bukuModelArrayList;
-    }
+//    public ArrayList<BukuModel> displayBuku(long id_user) {
+//        sqLiteDatabase = database.getReadableDatabase();
+//        cursor = sqLiteDatabase.rawQuery("select * from buku", null);
+//        bukuModelArrayList = new ArrayList<>();
+//        if (cursor.moveToFirst()) {
+//            do {
+//                bukuModelArrayList.add(new BukuModel(cursor.getInt(0), cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getString(6), , cursor.getString(7)));
+//            } while (cursor.moveToNext());
+//        }
+//        cursor.close();
+//        return bukuModelArrayList;
+//    }
 }

@@ -63,18 +63,23 @@ public class BukuHandler extends MainActivity {
         return id_data;
     }
 
-    public void deleteBuku(String id_buku) {
+    public void deleteBuku(long id_buku) {
         openWrite();
         sqLiteDatabase.delete(database.table_buku, "id_buku = '" + id_buku + "'", null);
     }
 
     public ArrayList<BukuModel> displayBuku(long id_user) {
         openRead();
-        cursor = sqLiteDatabase.rawQuery("select * from buku", null);
+        String query = "SELECT b.*, k.nama_kategori " +
+                "FROM buku b " +
+                "LEFT JOIN kategori_relasi kr ON b.id_buku = kr.id_buku " +
+                "LEFT JOIN kategori k ON kr.id_kategori = k.id_kategori";
+
+        cursor = sqLiteDatabase.rawQuery(query, null);
         bukuModelArrayList = new ArrayList<>();
         if (cursor.moveToFirst()) {
             do {
-                bukuModelArrayList.add(new BukuModel(cursor.getInt(0), cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getString(6)));
+                bukuModelArrayList.add(new BukuModel(cursor.getInt(0), cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7)));
             } while (cursor.moveToNext());
         }
         cursor.close();

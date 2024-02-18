@@ -15,8 +15,10 @@ import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.example.perpustakaan.Adapter.BukuAdapter;
+import com.example.perpustakaan.Adapter.UlasanAdapter;
 import com.example.perpustakaan.Handler.BukuHandler;
 import com.example.perpustakaan.Model.BukuModel;
+import com.example.perpustakaan.Model.UlasanModel;
 import com.example.perpustakaan.R;
 
 import java.util.ArrayList;
@@ -29,10 +31,13 @@ public class MenuUser extends AppCompatActivity {
     SearchView searchViewBuku;
     Bundle bundle;
     Long id_data;
+    Boolean benar = false;
     String username, password;
     ArrayList<BukuModel> bukuModelArrayList;
+    ArrayList<UlasanModel> ulasanModelArrayList;
     BukuHandler bukuHandler;
     BukuAdapter bukuAdapter;
+    UlasanAdapter ulasanAdapter;
     Intent intent;
 
     @Override
@@ -45,9 +50,9 @@ public class MenuUser extends AppCompatActivity {
         id_data = bundle.getLong("key_id_user");
         username = bundle.getString("key_username");
         password = bundle.getString("key_password");
+        Toast.makeText(this, "welkam bek " + username, Toast.LENGTH_SHORT).show();
         bukuModelArrayList = new ArrayList<>();
         bukuHandler = new BukuHandler(MenuUser.this);
-        bukuAdapter = new BukuAdapter(bukuModelArrayList, this, username);
         recyclerViewBuku = findViewById(R.id.rvBuku);
         searchViewBuku = findViewById(R.id.searchViewBuku);
         radioGroup = findViewById(R.id.radioGroup);
@@ -59,7 +64,14 @@ public class MenuUser extends AppCompatActivity {
         imageViewAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent = new Intent(MenuUser.this, AddBuku.class);
+                addMenu(username);
+            }
+        });
+
+        imageViewHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent = new Intent(MenuUser.this, MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
@@ -81,6 +93,7 @@ public class MenuUser extends AppCompatActivity {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if (checkedId == R.id.radioButtonKategori) {
+                    benar = true;
                     Toast.makeText(MenuUser.this, "filter by kategori", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(MenuUser.this, "filter by judul", Toast.LENGTH_SHORT).show();
@@ -98,10 +111,21 @@ public class MenuUser extends AppCompatActivity {
             public boolean onQueryTextChange(String newText) {
                 newText = newText.toLowerCase();
                 ArrayList<BukuModel> arrayList = new ArrayList<>();
-                for (BukuModel bukuModel : bukuModelArrayList) {
-                    String judul = bukuModel.getJudul().toLowerCase();
-                    if (judul.contains(newText)) {
-                        arrayList.add(bukuModel);
+                if (newText.isEmpty()) {
+                    arrayList.addAll(bukuModelArrayList);
+                } else {
+                    for (BukuModel bukuModel : bukuModelArrayList) {
+                        String judul = bukuModel.getJudul().toLowerCase();
+                        String kategori = bukuModel.getKategori();
+                        if (benar == true) {
+                            if (kategori != null && kategori.toLowerCase().contains(newText)) {
+                                arrayList.add(bukuModel);
+                            }
+                        } else {
+                            if (judul.contains(newText)) {
+                                arrayList.add(bukuModel);
+                            }
+                        }
                     }
                 }
                 bukuAdapter.setFilter(arrayList);
@@ -110,13 +134,26 @@ public class MenuUser extends AppCompatActivity {
         });
     }
 
+    void addMenu(String username) {
+        if (username.equals("admin") || username.equals("petugas")) {
+            intent = new Intent(MenuUser.this, AddBuku.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        } else {
+            Toast.makeText(this, "menu koleksi", Toast.LENGTH_SHORT).show();
+//            intent = new Intent(MenuUser.this, AddBuku.class);
+//            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//            startActivity(intent);
+        }
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MenuUser.this, RecyclerView.VERTICAL, false);
         recyclerViewBuku.setLayoutManager(linearLayoutManager);
         bukuModelArrayList = bukuHandler.displayBuku(id_data);
-        bukuAdapter = new BukuAdapter(bukuModelArrayList, this, username);
+        bukuAdapter = new BukuAdapter(bukuModelArrayList, this, id_data, username);
         recyclerViewBuku.setAdapter(bukuAdapter);
         bukuAdapter.notifyDataSetChanged();
     }

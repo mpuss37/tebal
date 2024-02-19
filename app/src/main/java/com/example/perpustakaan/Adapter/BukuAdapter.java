@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.perpustakaan.Handler.BukuHandler;
 import com.example.perpustakaan.Handler.KoleksiHandler;
+import com.example.perpustakaan.Handler.PeminjamanHandler;
 import com.example.perpustakaan.Handler.UlasanHandler;
 import com.example.perpustakaan.Model.BukuModel;
 import com.example.perpustakaan.Model.UlasanModel;
@@ -22,6 +23,7 @@ import com.example.perpustakaan.R;
 import com.example.perpustakaan.View.AddBuku;
 import com.example.perpustakaan.View.AddUlasan;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class BukuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -30,11 +32,11 @@ public class BukuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     BukuHandler bukuHandler;
     UlasanHandler ulasanHandler;
     KoleksiHandler koleksiHandler;
+    PeminjamanHandler peminjamanHandler;
     Intent intent;
     Context context;
-    int id;
-    long id_user, id_buku;
-    String judul, penulis, penerbit, tahunterbit, username, kategori;
+    long id_user, id_buku, id_data;
+    String judul, penulis, penerbit, tahunterbit, username, kategori, status, tanggalAwal, tanggalAkhir;
 
     public BukuAdapter(ArrayList<BukuModel> bukuModelArrayList, Context context, long id_user, String username) {
         this.bukuModelArrayList = bukuModelArrayList;
@@ -53,7 +55,7 @@ public class BukuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         BukuModel bukuModel = bukuModelArrayList.get(position);
-//        UlasanModel ulasanModel = ulasanModelArrayList.get(position);
+        peminjamanHandler = new PeminjamanHandler(context);
         bukuHandler = new BukuHandler(context);
         koleksiHandler = new KoleksiHandler(context);
         if (holder instanceof ViewHolder) {
@@ -86,7 +88,15 @@ public class BukuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             viewHolder.imageViewBorrow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                    koleksiHandler.insertKoleksi();
+                    LocalDate localDate = LocalDate.now();
+                    id_buku = Long.parseLong(viewHolder.textViewIdBuku.getText().toString());
+                    id_data = peminjamanHandler.readPeminjaman(id_user, id_buku);
+                    if (id_data == -1) {
+                        peminjamanHandler.insertPeminjaman(id_user, id_buku, localDate.toString(), localDate.plusDays(3).toString(), "active");
+                        Toast.makeText(context, "successfully borrow book", Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(context, "book has been add", Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
 

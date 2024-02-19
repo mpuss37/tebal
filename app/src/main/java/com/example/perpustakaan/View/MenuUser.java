@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.perpustakaan.Adapter.BukuAdapter;
@@ -26,7 +27,7 @@ import java.util.ArrayList;
 public class MenuUser extends AppCompatActivity {
     RecyclerView recyclerViewBuku;
     RadioGroup radioGroup;
-    ImageView imageViewHome, imageViewAdd, imageViewprofile;
+    ImageView imageViewHome, imageViewAdd, imageViewprofile, imageViewBorrow;
     RadioButton radioButtonJudul, radioButtonKategori;
     SearchView searchViewBuku;
     Bundle bundle;
@@ -46,6 +47,7 @@ public class MenuUser extends AppCompatActivity {
         setContentView(R.layout.activity_menu_user);
         getSupportActionBar().show();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Menu User");
         bundle = this.getIntent().getExtras();
         id_data = bundle.getLong("key_id_user");
         username = bundle.getString("key_username");
@@ -53,11 +55,18 @@ public class MenuUser extends AppCompatActivity {
         Toast.makeText(this, "welkam bek " + username, Toast.LENGTH_SHORT).show();
         bukuModelArrayList = new ArrayList<>();
         bukuHandler = new BukuHandler(MenuUser.this);
+        bukuAdapter = new BukuAdapter(bukuModelArrayList, this, id_data, username);
+        bukuModelArrayList.clear();
+        bukuModelArrayList.addAll(bukuHandler.displayBuku(id_data));
+        bukuAdapter.notifyDataSetChanged();
         recyclerViewBuku = findViewById(R.id.rvBuku);
         searchViewBuku = findViewById(R.id.searchViewBuku);
         radioGroup = findViewById(R.id.radioGroup);
         imageViewHome = findViewById(R.id.imageViewHome);
         imageViewAdd = findViewById(R.id.imageViewAdd);
+        if (!username.equals("admin") || equals("petugas")) {
+            imageViewAdd.setImageResource(R.drawable.ebook);
+        }
         imageViewprofile = findViewById(R.id.imageViewProfile);
         radioButtonJudul = findViewById(R.id.radioButtonJudul);
         searchViewBuku.clearFocus();
@@ -140,10 +149,10 @@ public class MenuUser extends AppCompatActivity {
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         } else {
-            Toast.makeText(this, "menu koleksi", Toast.LENGTH_SHORT).show();
-//            intent = new Intent(MenuUser.this, AddBuku.class);
-//            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//            startActivity(intent);
+            intent = new Intent(MenuUser.this, MenuPeminjaman.class);
+            intent.putExtra("key_id_user", id_data);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
         }
     }
 

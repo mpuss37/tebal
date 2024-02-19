@@ -26,6 +26,8 @@ public class MenuProfile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_profile);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Menu Profile");
         bundle = this.getIntent().getExtras();
         id_data = bundle.getLong("key_id_user");
         username = bundle.getString("key_username");

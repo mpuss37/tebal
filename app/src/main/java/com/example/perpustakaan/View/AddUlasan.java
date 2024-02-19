@@ -38,6 +38,8 @@ public class AddUlasan extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_ulasan);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Menu Ulasan");
         ulasanHandler = new UlasanHandler(this);
         bundle = this.getIntent().getExtras();
         id_user = bundle.getLong("key_id_user");
@@ -75,13 +77,19 @@ public class AddUlasan extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ulasan = editTextUlasan.getText().toString();
-                rating = textViewRating.getText().toString() + "+";
+                rating = textViewRating.getText().toString();
                 if (ulasan.equals("")) {
                     Toast.makeText(AddUlasan.this, "input field", Toast.LENGTH_SHORT).show();
                 } else {
                     id_ulasan = ulasanHandler.readUlasan(ulasan);
                     if (id_ulasan == -1) {
-                        ulasanHandler.insertUlasan(id_user, id_buku, ulasan, rating);
+                        String ratingAkhir;
+                        if (rating.equals("")) {
+                            ratingAkhir = "Rate : -";
+                        } else {
+                            ratingAkhir = "Rate : " + rating;
+                        }
+                        ulasanHandler.insertUlasan(id_user, id_buku, ulasan, ratingAkhir);
                         ulasanModelArrayList.clear();
                         ulasanModelArrayList.addAll(ulasanHandler.displayUlasan());
                         ulasanAdapter.notifyDataSetChanged();

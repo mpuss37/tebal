@@ -28,7 +28,7 @@
         app:layout_constraintTop_toTopOf="@+id/textViewIdPeminjaman" />
 
     <TextView
-        android:id="@+id/textViewIdBuku"
+        android:id="@+id/textViewJudul"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextViewUsername"

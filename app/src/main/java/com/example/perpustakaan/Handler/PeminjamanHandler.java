@@ -2,6 +2,8 @@ package com.example.perpustakaan.Handler;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.example.perpustakaan.Model.BukuModel;
 import com.example.perpustakaan.Model.PeminjamanModel;
@@ -68,12 +70,17 @@ public class PeminjamanHandler extends MainActivity {
 
     public ArrayList<PeminjamanModel> displayPeminjaman(long id_user) {
         openRead();
-        String query = "select * from peminjaman where id_user = '" + id_user + "'";
+//        String query = "select * from peminjaman where id_user = '" + id_user + "'";
+        String query = "SELECT p.*, b." + database.col_judul +
+                " FROM " + database.table_peminjaman + " p" +
+                " INNER JOIN " + database.table_buku + " b" +
+                " ON p.id_buku = b.id_buku" +
+                " WHERE p.id_user = " + id_user;
         cursor = sqLiteDatabase.rawQuery(query, null);
         peminjamanModelArrayList = new ArrayList<>();
         if (cursor.moveToFirst()) {
             do {
-                peminjamanModelArrayList.add(new PeminjamanModel(cursor.getInt(0), cursor.getInt(1), cursor.getInt(2), cursor.getString(3), cursor.getString(4), cursor.getString(5)));
+                peminjamanModelArrayList.add(new PeminjamanModel(cursor.getInt(0), cursor.getInt(1), cursor.getInt(2), cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getString(6)));
             } while (cursor.moveToNext());
         }
         cursor.close();

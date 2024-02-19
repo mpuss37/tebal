@@ -48,8 +48,8 @@ public class UserHandler extends MainActivity {
         openRead();
         id_data = -1;
         query = "select * from user where username = '" + username + "' and password = '" + password + "'";
-        cursor = sqLiteDatabase.rawQuery(query,null);
-        if (cursor.moveToFirst()){
+        cursor = sqLiteDatabase.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
             id_data = cursor.getInt(0);
         }
         return id_data;

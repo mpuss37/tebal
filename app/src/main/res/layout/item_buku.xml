@@ -27,7 +27,7 @@
         app:layout_constraintTop_toTopOf="@+id/textViewIdPeminjaman" />
 
     <TextView
-        android:id="@+id/textViewIdBuku"
+        android:id="@+id/textViewJudul"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -42,8 +42,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/textViewIdBuku"
-        app:layout_constraintTop_toBottomOf="@+id/textViewIdBuku" />
+        app:layout_constraintStart_toStartOf="@+id/textViewJudul"
+        app:layout_constraintTop_toBottomOf="@+id/textViewJudul" />
 
     <TextView
         android:id="@+id/TextViewTahunTerbit"
@@ -62,8 +62,8 @@
         android:layout_marginTop="8dp"
         android:text="TextView"
         android:visibility="gone"
-        app:layout_constraintStart_toStartOf="@+id/textViewIdBuku"
-        app:layout_constraintTop_toBottomOf="@+id/textViewIdBuku" />
+        app:layout_constraintStart_toStartOf="@+id/textViewJudul"
+        app:layout_constraintTop_toBottomOf="@+id/textViewJudul" />
 
     <TextView
         android:id="@+id/textViewPenerbit"

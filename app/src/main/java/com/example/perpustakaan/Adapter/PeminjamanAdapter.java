@@ -13,22 +13,14 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.perpustakaan.Handler.BukuHandler;
-import com.example.perpustakaan.Handler.KoleksiHandler;
 import com.example.perpustakaan.Handler.PeminjamanHandler;
-import com.example.perpustakaan.Handler.UlasanHandler;
-import com.example.perpustakaan.Model.BukuModel;
 import com.example.perpustakaan.Model.PeminjamanModel;
-import com.example.perpustakaan.Model.UlasanModel;
 import com.example.perpustakaan.R;
-import com.example.perpustakaan.View.AddBuku;
-import com.example.perpustakaan.View.AddUlasan;
 
 import java.util.ArrayList;
 
 public class PeminjamanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     ArrayList<PeminjamanModel> peminjamanModelArrayList;
-    BukuHandler bukuHandler;
     Intent intent;
     Context context;
     int id;
@@ -57,8 +49,9 @@ public class PeminjamanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             viewHolder.textViewIdUser.setText(String.valueOf(peminjamanModel.getId_user()));
             viewHolder.textViewIdBuku.setText(String.valueOf(peminjamanModel.getId_buku()));
             viewHolder.textViewTanggalAwal.setText(String.valueOf(peminjamanModel.getTanggalAwal()));
-            viewHolder.textViewTanggalAkhir.setText(String.valueOf(peminjamanModel.getTanggalAwal()));
+            viewHolder.textViewTanggalAkhir.setText(String.valueOf(peminjamanModel.getTanggalAkhir()));
             viewHolder.textViewStatus.setText(String.valueOf(peminjamanModel.getStatus()));
+            viewHolder.textViewJudul.setText(String.valueOf(peminjamanModel.getJudul()));
 
             viewHolder.imageViewRemove.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -94,7 +87,7 @@ public class PeminjamanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        TextView textViewIdBuku, textViewIdUser, textViewTanggalAwal, textViewTanggalAkhir, textViewStatus;
+        TextView textViewIdBuku, textViewIdUser, textViewTanggalAwal, textViewTanggalAkhir, textViewStatus, textViewJudul;
         ImageView imageViewRemove;
         ConstraintLayout constraintLayout;
 
@@ -105,6 +98,7 @@ public class PeminjamanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             textViewTanggalAwal = itemView.findViewById(R.id.textViewAwal);
             textViewTanggalAkhir = itemView.findViewById(R.id.textViewAkhir);
             textViewStatus = itemView.findViewById(R.id.textViewStatus);
+            textViewJudul = itemView.findViewById(R.id.textViewJudul);
             imageViewRemove = itemView.findViewById(R.id.imageViewRemove);
             constraintLayout = itemView.findViewById(R.id.cvData);
         }

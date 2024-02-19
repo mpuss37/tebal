@@ -155,7 +155,7 @@ public class BukuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             super(itemView);
             textViewIdUser = itemView.findViewById(R.id.TextViewIdUser);
             textViewIdBuku = itemView.findViewById(R.id.textViewIdPeminjaman);
-            textViewJudul = itemView.findViewById(R.id.textViewIdBuku);
+            textViewJudul = itemView.findViewById(R.id.textViewJudul);
             textViewPenulis = itemView.findViewById(R.id.textViewPenulis);
             textViewPenerbit = itemView.findViewById(R.id.textViewPenerbit);
             textViewTahunTerbit = itemView.findViewById(R.id.TextViewTahunTerbit);

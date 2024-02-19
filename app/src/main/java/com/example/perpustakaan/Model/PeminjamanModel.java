@@ -2,15 +2,16 @@ package com.example.perpustakaan.Model;
 
 public class PeminjamanModel {
     private int id_peminjaman, id_user, id_buku;
-    private String tanggalAwal, tanggalAkhir, status;
+    private String tanggalAwal, tanggalAkhir, status, judul;
 
-    public PeminjamanModel(int id_peminjaman, int id_user, int id_buku, String tanggalAwal, String tanggalAkhir, String status) {
+    public PeminjamanModel(int id_peminjaman, int id_user, int id_buku, String tanggalAwal, String tanggalAkhir, String status, String judul) {
         this.id_peminjaman = id_peminjaman;
         this.id_user = id_user;
         this.id_buku = id_buku;
         this.tanggalAwal = tanggalAwal;
         this.tanggalAkhir = tanggalAkhir;
         this.status = status;
+        this.judul = judul;
     }
 
     public int getId_peminjaman() {
@@ -59,5 +60,13 @@ public class PeminjamanModel {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getJudul() {
+        return judul;
+    }
+
+    public void setJudul(String judul) {
+        this.judul = judul;
     }
 }

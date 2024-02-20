@@ -70,7 +70,7 @@
         app:layout_constraintTop_toTopOf="@+id/textViewStatus" />
 
     <TextView
-        android:id="@+id/textViewUsername"
+        android:id="@+id/textViewAkhir"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -79,6 +79,27 @@
         app:layout_constraintBottom_toBottomOf="@+id/textViewAwal"
         app:layout_constraintStart_toEndOf="@+id/textViewAwal"
         app:layout_constraintTop_toTopOf="@+id/textViewAwal" />
+
+    <TextView
+        android:id="@+id/textViewKategori"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewAwal"
+        app:layout_constraintTop_toTopOf="@+id/textViewAwal"
+        tools:layout_editor_absoluteX="8dp" />
+
+    <TextView
+        android:id="@+id/textViewUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="textViewUsername"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewJudul"
+        app:layout_constraintStart_toEndOf="@+id/textViewJudul"
+        app:layout_constraintTop_toTopOf="@+id/textViewJudul" />
 
     <TextView
         android:id="@+id/TextViewTahunTerbit"
@@ -116,7 +137,7 @@
         android:layout_height="30dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/book" />
+        app:srcCompat="@drawable/user" />
 
     <ImageView
         android:id="@+id/imageViewRemove"
@@ -127,5 +148,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/remove" />
+
+    <ImageView
+        android:id="@+id/imageViewReport"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewRemove"
+        app:layout_constraintEnd_toStartOf="@+id/imageViewRemove"
+        app:layout_constraintTop_toTopOf="@+id/imageViewRemove"
+        app:srcCompat="@drawable/report" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

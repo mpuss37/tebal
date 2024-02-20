@@ -13,53 +13,60 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.perpustakaan.Handler.LaporanHandler;
 import com.example.perpustakaan.Handler.PeminjamanHandler;
+import com.example.perpustakaan.Model.LaporanModel;
 import com.example.perpustakaan.Model.PeminjamanModel;
 import com.example.perpustakaan.R;
 
 import java.util.ArrayList;
 
-public class PeminjamanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    ArrayList<PeminjamanModel> peminjamanModelArrayList;
+public class LaporanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    ArrayList<LaporanModel> laporanModelArrayList;
     Intent intent;
     Context context;
     int id;
     long id_user, id_buku, id_peminjaman;
-    private String status, tanggalAwal, tanggalAkhir;
+    private String judul, penulis, penerbit, kategori, status, tanggalAwal, tanggalAkhir, username;
 
-    public PeminjamanAdapter(ArrayList<PeminjamanModel> peminjamanModelArrayList, Context context, long id_user) {
-        this.peminjamanModelArrayList = peminjamanModelArrayList;
+    public LaporanAdapter(ArrayList<LaporanModel> laporanModelArrayList, Context context) {
+        this.laporanModelArrayList = laporanModelArrayList;
         this.context = context;
-        this.id_user = id_user;
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_peminjaman, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_laporan, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        PeminjamanModel peminjamanModel = peminjamanModelArrayList.get(position);
-        PeminjamanHandler peminjamanHandler = new PeminjamanHandler(context);
+        LaporanModel laporanModel = laporanModelArrayList.get(position);
+        LaporanHandler laporanHandler = new LaporanHandler(context);
         if (holder instanceof ViewHolder) {
             ViewHolder viewHolder = (ViewHolder) holder;
-            viewHolder.textViewIdUser.setText(String.valueOf(peminjamanModel.getId_user()));
-            viewHolder.textViewIdBuku.setText(String.valueOf(peminjamanModel.getId_buku()));
-            viewHolder.textViewTanggalAwal.setText(String.valueOf(peminjamanModel.getTanggalAwal()));
-            viewHolder.textViewTanggalAkhir.setText(String.valueOf(peminjamanModel.getTanggalAkhir()));
-            viewHolder.textViewStatus.setText(String.valueOf(peminjamanModel.getStatus()));
-            viewHolder.textViewJudul.setText(String.valueOf(peminjamanModel.getJudul()));
+//    textViewIdPeminjaman, textViewIdBuku, textViewIdUser, textViewJudul, textViewPenulis, textViewPenerbit, textViewKategori, textViewTanggalAwal, textViewTanggalAkhir, textViewStatus, textViewUsername
+            viewHolder.textViewIdPeminjaman.setText(String.valueOf(laporanModel.getId_peminjaman()));
+            viewHolder.textViewIdBuku.setText(String.valueOf(laporanModel.getId_buku()));
+            viewHolder.textViewIdUser.setText(String.valueOf(laporanModel.getId_user()));
+            viewHolder.textViewJudul.setText(String.valueOf(laporanModel.getJudul()));
+            viewHolder.textViewPenulis.setText(String.valueOf(laporanModel.getPenulis()));
+            viewHolder.textViewPenerbit.setText(String.valueOf(laporanModel.getPenerbit()));
+            viewHolder.textViewKategori.setText(String.valueOf(laporanModel.getKategori()));
+            viewHolder.textViewTanggalAwal.setText(String.valueOf(laporanModel.getTanggalAwal()));
+            viewHolder.textViewTanggalAkhir.setText(String.valueOf(laporanModel.getTanggalAkhir()));
+            viewHolder.textViewStatus.setText(String.valueOf(laporanModel.getStatus()));
+            viewHolder.textViewUsername.setText(String.valueOf(laporanModel.getUsername()));
 
             viewHolder.imageViewRemove.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    peminjamanModelArrayList.remove(holder.getAdapterPosition());
+//                    peminjamanModelArrayList.remove(holder.getAdapterPosition());
                     id_buku = Long.parseLong(viewHolder.textViewIdBuku.getText().toString());
                     id_user = Long.parseLong(viewHolder.textViewIdUser.getText().toString());
-                    peminjamanHandler.deletePeminjaman(id_buku, id_user);
+//                    peminjamanHandler.deletePeminjaman(id_buku, id_user);
                     Toast.makeText(context, "delete successfully", Toast.LENGTH_SHORT).show();
                     notifyItemRemoved(holder.getAdapterPosition());
                 }
@@ -83,22 +90,27 @@ public class PeminjamanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public int getItemCount() {
-        return peminjamanModelArrayList.size();
+        return laporanModelArrayList.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        TextView textViewIdBuku, textViewIdUser, textViewTanggalAwal, textViewTanggalAkhir, textViewStatus, textViewJudul;
+        TextView textViewIdPeminjaman, textViewIdBuku, textViewIdUser, textViewJudul, textViewPenulis, textViewPenerbit, textViewKategori, textViewTanggalAwal, textViewTanggalAkhir, textViewStatus, textViewUsername;
         ImageView imageViewRemove;
         ConstraintLayout constraintLayout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            textViewIdPeminjaman = itemView.findViewById(R.id.textViewIdPeminjaman);
             textViewIdUser = itemView.findViewById(R.id.TextViewIdUser);
             textViewIdBuku = itemView.findViewById(R.id.textViewIdBuku);
-            textViewTanggalAwal = itemView.findViewById(R.id.textViewAwal);
-            textViewTanggalAkhir = itemView.findViewById(R.id.textViewUsername);
-            textViewStatus = itemView.findViewById(R.id.textViewStatus);
             textViewJudul = itemView.findViewById(R.id.textViewJudul);
+            textViewPenulis = itemView.findViewById(R.id.textViewJudul);
+            textViewPenerbit = itemView.findViewById(R.id.textViewPenerbit);
+            textViewTanggalAwal = itemView.findViewById(R.id.textViewAwal);
+            textViewTanggalAkhir = itemView.findViewById(R.id.textViewAkhir);
+            textViewStatus = itemView.findViewById(R.id.textViewStatus);
+            textViewKategori = itemView.findViewById(R.id.textViewKategori);
+            textViewUsername = itemView.findViewById(R.id.textViewUsername);
             imageViewRemove = itemView.findViewById(R.id.imageViewRemove);
             constraintLayout = itemView.findViewById(R.id.cvData);
         }

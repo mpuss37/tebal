@@ -77,6 +77,18 @@ public class MenuUser extends AppCompatActivity {
             }
         });
 
+        imageViewAdd.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if (username.equals("admin") || username.equals("petugas")) {
+                    intent = new Intent(MenuUser.this, MenuLaporan.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
+                return false;
+            }
+        });
+
         imageViewHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

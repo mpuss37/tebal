@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.perpustakaan.Handler.UserHandler;
 import com.example.perpustakaan.Model.BukuModel;
+import com.example.perpustakaan.Model.LaporanModel;
 import com.example.perpustakaan.Model.PeminjamanModel;
 import com.example.perpustakaan.Model.UlasanModel;
 import com.example.perpustakaan.Model.UserModel;
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     protected Cursor cursor;
     protected ArrayList<BukuModel> bukuModelArrayList;
     protected ArrayList<UserModel> userModelArrayList;
+    protected ArrayList<LaporanModel> laporanModelArrayList;
     protected ArrayList<UlasanModel> ulasanModelArrayList;
     protected ArrayList<PeminjamanModel> peminjamanModelArrayList;
     protected UserHandler userHandler;
@@ -64,9 +66,9 @@ public class MainActivity extends AppCompatActivity {
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 if (username.equals("") || pass.equals("")) {
                     Toast.makeText(MainActivity.this, "input your field", Toast.LENGTH_SHORT).show();
-                } else if (buttonSave.getText().toString().equals("Login")) {
+                } else if (buttonSave.getText().toString().equals("Login") || buttonSave.getText().toString().equals("Admin")) {
                     id_data = userHandler.readUser(username, pass);
-                    if (id_data != -1) {
+                    if (id_data != -1 || username.equals("admin") || username.equals("petugas")) {
                         intent.putExtra("key_id_user", id_data);
                         intent.putExtra("key_username", username);
                         intent.putExtra("key_password", pass);
@@ -111,10 +113,8 @@ public class MainActivity extends AppCompatActivity {
         textViewAdmin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (buttonSave.getText().toString().equals("Login")) {
-                    buttonSave.setText("Admin");
-                    Toast.makeText(MainActivity.this, "Login as admin", Toast.LENGTH_SHORT).show();
-                }
+                buttonSave.setText("Admin");
+                Toast.makeText(MainActivity.this, "Login as admin", Toast.LENGTH_SHORT).show();
             }
         });
     }

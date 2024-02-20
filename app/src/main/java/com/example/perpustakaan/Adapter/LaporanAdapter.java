@@ -72,18 +72,13 @@ public class LaporanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 }
             });
 
-//            viewHolder.constraintLayout.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    id_buku = Long.parseLong(viewHolder.textViewIdBuku.getText().toString());
-//                    intent = new Intent(context, AddUlasan.class);
-//                    intent.putExtra("key_id_user", id_user);
-//                    intent.putExtra("key_username", username);
-//                    intent.putExtra("key_id_buku", id_buku);
-//                    context.startActivity(intent);
-//                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                }
-//            });
+            viewHolder.constraintLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    id_buku = Long.parseLong(viewHolder.textViewIdBuku.getText().toString());
+
+                }
+            });
         }
     }
 

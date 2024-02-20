@@ -14,18 +14,22 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.perpustakaan.Handler.PeminjamanHandler;
+import com.example.perpustakaan.Model.LaporanModel;
 import com.example.perpustakaan.Model.PeminjamanModel;
 import com.example.perpustakaan.R;
+import com.example.perpustakaan.View.MenuPeminjaman;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class PeminjamanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     ArrayList<PeminjamanModel> peminjamanModelArrayList;
+    ArrayList<LaporanModel> laporanModelArrayList;
     Intent intent;
     Context context;
     int id;
     long id_user, id_buku, id_peminjaman;
-    private String status, tanggalAwal, tanggalAkhir;
+    private String username, status, tanggalAwal, tanggalAkhir;
 
     public PeminjamanAdapter(ArrayList<PeminjamanModel> peminjamanModelArrayList, Context context, long id_user) {
         this.peminjamanModelArrayList = peminjamanModelArrayList;
@@ -53,6 +57,14 @@ public class PeminjamanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             viewHolder.textViewStatus.setText(String.valueOf(peminjamanModel.getStatus()));
             viewHolder.textViewJudul.setText(String.valueOf(peminjamanModel.getJudul()));
 
+//            viewHolder.constraintLayout.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    LocalDate localDate = LocalDate.now();
+//                    generateReport(context, localDate.toString(), "PDF");
+//                }
+//            });
+
             viewHolder.imageViewRemove.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -64,20 +76,17 @@ public class PeminjamanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     notifyItemRemoved(holder.getAdapterPosition());
                 }
             });
-
-//            viewHolder.constraintLayout.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    id_buku = Long.parseLong(viewHolder.textViewIdBuku.getText().toString());
-//                    intent = new Intent(context, AddUlasan.class);
-//                    intent.putExtra("key_id_user", id_user);
-//                    intent.putExtra("key_username", username);
-//                    intent.putExtra("key_id_buku", id_buku);
-//                    context.startActivity(intent);
-//                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                }
-//            });
         }
+    }
+
+    public String generateReport(Context context, String nama, String tipe) {
+        // Lakukan proses generate report di sini dengan menggunakan context yang diterima
+        // Misalnya, panggil metode generateReport dari activity atau fragment utama
+        if (context instanceof MenuPeminjaman) {
+            ((MenuPeminjaman) context).generateReport(context, nama, tipe);
+        }
+
+        return nama;
     }
 
 

@@ -18,7 +18,11 @@ import com.example.perpustakaan.Handler.PeminjamanHandler;
 import com.example.perpustakaan.Model.LaporanModel;
 import com.example.perpustakaan.Model.PeminjamanModel;
 import com.example.perpustakaan.R;
+import com.example.perpustakaan.View.MenuLaporan;
+import com.example.perpustakaan.View.MenuPeminjaman;
 
+import java.io.FileNotFoundException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class LaporanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -44,7 +48,7 @@ public class LaporanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         LaporanModel laporanModel = laporanModelArrayList.get(position);
-        LaporanHandler laporanHandler = new LaporanHandler(context);
+        MenuPeminjaman menuPeminjaman = new MenuPeminjaman();
         if (holder instanceof ViewHolder) {
             ViewHolder viewHolder = (ViewHolder) holder;
 //    textViewIdPeminjaman, textViewIdBuku, textViewIdUser, textViewJudul, textViewPenulis, textViewPenerbit, textViewKategori, textViewTanggalAwal, textViewTanggalAkhir, textViewStatus, textViewUsername
@@ -60,26 +64,25 @@ public class LaporanAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             viewHolder.textViewStatus.setText(String.valueOf(laporanModel.getStatus()));
             viewHolder.textViewUsername.setText(String.valueOf(laporanModel.getUsername()));
 
-            viewHolder.imageViewRemove.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-//                    peminjamanModelArrayList.remove(holder.getAdapterPosition());
-                    id_buku = Long.parseLong(viewHolder.textViewIdBuku.getText().toString());
-                    id_user = Long.parseLong(viewHolder.textViewIdUser.getText().toString());
-//                    peminjamanHandler.deletePeminjaman(id_buku, id_user);
-                    Toast.makeText(context, "delete successfully", Toast.LENGTH_SHORT).show();
-                    notifyItemRemoved(holder.getAdapterPosition());
-                }
-            });
-
             viewHolder.constraintLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    id_buku = Long.parseLong(viewHolder.textViewIdBuku.getText().toString());
-
+                    LocalDate localDate = LocalDate.now();
+                    username = viewHolder.textViewUsername.getText().toString();
+                    generateReport(context, localDate.toString()+username, "PDF", laporanModelArrayList);
                 }
             });
         }
+    }
+
+    public String generateReport(Context context, String nama, String tipe, ArrayList<LaporanModel> laporanModelArrayList) {
+        // Lakukan proses generate report di sini dengan menggunakan context yang diterima
+        // Misalnya, panggil metode generateReport dari activity atau fragment utama
+        if (context instanceof MenuLaporan) {
+            ((MenuLaporan) context).generateReport(context, nama, tipe, laporanModelArrayList);
+        }
+
+        return nama;
     }
 
 
